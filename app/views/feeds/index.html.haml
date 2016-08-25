@@ -1,0 +1,23 @@
+%row
+  .col-md-12
+    %h1{style: 'width: 80%; float: left;'} Listing Feeds
+    = link_to 'Add New Feed Url', new_feed_path, class: 'btn btn-info', style: 'float: right; margin: 20px 10px 0px 0px;'
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th Feed url
+          %th Actions
+      %tbody
+        - unless @feeds.blank?
+          - @feeds.each do |feed|
+            %tr
+              %td= feed.feed_url
+              %td
+                = link_to 'Show', feed
+                = link_to 'Edit', edit_feed_path(feed)
+                = link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' }
+        - else
+          %tr
+            %td{colspan: 2} 
+              %h2.text-center No Feed Url's Found
+    %br/
