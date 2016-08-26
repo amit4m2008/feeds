@@ -10,6 +10,7 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
+    @feed_items = @feed.parse_rss_feeds
   end
 
   # GET /feeds/new

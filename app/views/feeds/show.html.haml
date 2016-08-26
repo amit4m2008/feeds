@@ -1,0 +1,13 @@
+.row
+  .col-md-12
+    %ps
+      %strong Feed url:
+      = @feed.feed_url
+    %hr
+    %ul.list-group
+      - @feed_items.each do |feed_item|
+        %li.list-group-item
+          %h4= feed_item.css("title").text
+          %p.text-muted= feed_item.css("description").text
+
+    = link_to 'Back', feeds_path, class: 'btn btn-primary'
