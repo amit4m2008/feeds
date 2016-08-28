@@ -1,16 +1,17 @@
+= javascript_include_tag "feeds"
+
 = form_for(@feed, html: {class: "form-horizontal"}) do |f|
-  - if @feed.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@feed.errors.count, "error")
-        prohibited this feed from being saved:
+
+  #error_explanation
+    - if @feed.errors.any?
+      %h5 Please correct the following errors
       %ul
-        - @feed.errors.full_messages.each do |message|
+        - @feed.errors.each do |attr, message|
           %li= message
 
   .form-group
     = f.label :feed_url
     = f.text_field :feed_url, class: 'form-control'
   .form-group
-    = f.submit "Save", class: 'btn btn-success'
+    = f.submit "Save", class: 'btn btn-success', id: 'save_feed'
     = link_to 'Back', feeds_path, class: 'btn btn-primary'

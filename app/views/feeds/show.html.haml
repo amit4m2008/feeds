@@ -10,10 +10,12 @@
           %h4= feed_item.at("title").text
           .text-muted
             %b Posted On: 
-            = published_date(feed_item.at("pubdate").text)
+            = published_date((feed_item.at('pubdate') || feed_item.at('pubDate')).text)
           %p.text-muted
             = sanitize_item_description(feed_item.at("description").text).truncate(200)
           %p.text-muted
             = link_to "View Original Story", feed_item.at("link").next_sibling.text, class: 'btn btn-primary', target: '_blank'
 
-    = link_to 'Back', feeds_path, class: 'btn btn-primary'
+.row
+  .col-md-12
+    = paginate @feed_items
