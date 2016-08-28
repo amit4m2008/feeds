@@ -1,6 +1,6 @@
 module ApplicationHelper
   def sanitize_item_description(text)
-    return ActionView::Base.full_sanitizer.sanitize(text).squish rescue ""
+    return ActionView::Base.full_sanitizer.sanitize(text.truncate(500)).squish rescue ""
   end
 
   def published_date(date_string)

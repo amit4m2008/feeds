@@ -1,21 +1,28 @@
 .row
   .col-md-12
     %ps
+      %strong Feed Title:
+      =@feed_headers[:title]
+    %br
+
+    %ps
+      %strong Feed Description:
+      =@feed_headers[:description]
+    %br
+
+    %ps
       %strong Feed url:
       = @feed.feed_url
+
     %hr
-    %ul.list-group
-      - @feed_items.each do |feed_item|
+
+    %ul.list-group#feed_items
+      - if @feed_items.present?
+        = render 'feed_items'
+      - else
         %li.list-group-item
-          %h4= feed_item.at("title").text
-          .text-muted
-            %b Posted On: 
-            = published_date((feed_item.at('pubdate') || feed_item.at('pubDate')).text)
-          %p.text-muted
-            = sanitize_item_description(feed_item.at("description").text).truncate(200)
-          %p.text-muted
-            = link_to "View Original Story", feed_item.at("link").next_sibling.text, class: 'btn btn-primary', target: '_blank'
+          %h4 No Feed Items Found.
 
 .row
   .col-md-12
-    = paginate @feed_items
+    #paginator= paginate @feed_items, remote: true

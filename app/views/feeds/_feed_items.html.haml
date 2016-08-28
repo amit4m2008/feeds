@@ -1,0 +1,10 @@
+- @feed_items.each do |feed_item|
+  %li.list-group-item
+    %h4= feed_item[:title]
+    .text-muted
+      %b Posted On: 
+      = feed_item[:pubdate]
+    %p.text-muted
+      = feed_item[:description]
+    %p.text-muted
+      = link_to "View Original Story", feed_item[:link], class: 'btn btn-primary', target: '_blank'

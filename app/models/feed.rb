@@ -1,6 +1,7 @@
 require 'open-uri'
 
 class Feed < ActiveRecord::Base
+  include ApplicationHelper
 
   ## Validations
   validates_presence_of :feed_url, message: "Please enter feed url."
@@ -12,15 +13,33 @@ class Feed < ActiveRecord::Base
   def parse_rss_feeds
     feed_hash = {}
     doc = Nokogiri::XML(open(self.feed_url))
+
     items = doc.css("item")
+    feed_headers = {
+      title: (doc.at("title").text || ""),
+      description: (doc.at("description").text || "")
+    }
 
     items.each do |item|
-      date = item.at('pubdate') || item.at('pubDate')
-      pubdate = date.text.to_datetime.to_i.to_s
-      feed_hash[pubdate] = item
+      date = item.at('pubdate') || item.at('pubDate').text rescue ""
+      pubdate = date.to_datetime.to_i.to_s
+      feed_hash[pubdate] = create_item_hash(item, date)
     end
+
     feed_hash = feed_hash.sort.reverse.to_h.values
-    return feed_hash
+    return feed_hash, feed_headers
+  end
+
+  def create_item_hash(item, date)
+    link = item.at("link") || item.at("link").next_sibling
+    description = item.at("description").text.present? ? item.at("description").text : "No description found."
+    hash = {
+      title: item.at("title").text,
+      pubdate: published_date(date),
+      description: sanitize_item_description(description),
+      link: link.text
+    }
+    return hash
   end
 
   private

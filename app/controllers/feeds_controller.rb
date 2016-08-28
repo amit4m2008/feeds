@@ -10,7 +10,7 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
-    @feed_items = @feed.parse_rss_feeds
+    @feed_items, @feed_headers = @feed.parse_rss_feeds
     @feed_items = Kaminari.paginate_array(@feed_items).page(params[:page]).per(10)
   end
 

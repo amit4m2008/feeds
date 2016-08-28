@@ -13,7 +13,7 @@ development:
   database: feeds_development
   pool: 5
   username: postgres
-  password: root
+  password: postgres
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -39,7 +39,7 @@ test:
   database: feeds_test
   pool: 5
   username: postgres
-  password: root
+  password: postgres
 
 production:
   adapter: postgresql
@@ -47,4 +47,4 @@ production:
   database: feeds_production
   pool: 5
   username: postgres
-  password: root
+  password: postgres
