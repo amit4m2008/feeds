@@ -37,10 +37,6 @@
   color: #a94442;
 }
 
-.pagination{
-  float: right;
-}
-
 .pagination>span>a, .pagination > .current {
     position: relative;
     float: left;

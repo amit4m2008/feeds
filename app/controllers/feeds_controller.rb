@@ -1,6 +1,8 @@
 class FeedsController < ApplicationController
   before_action :set_feed, only: [:show, :edit, :update, :destroy]
 
+  caches_action :show
+
   # GET /feeds
   # GET /feeds.json
   def index
